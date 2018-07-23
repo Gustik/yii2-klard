@@ -29,7 +29,7 @@ class Object
     private $contentType;
     /** @var array Массив родительских объектов */
     private $arParents;
-s
+
     /**
      * @param $obObject
      */

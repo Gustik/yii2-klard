@@ -33,6 +33,7 @@ class Kladr extends InputWidget
     const TYPE_ZIP = 'zip';
 
     public $type;
+    public $select;
 
     public $containerTag = 'span';
     public $containerOptions = [];
@@ -96,7 +97,7 @@ class Kladr extends InputWidget
                     break;
             }
             if (isset($obj[0], $obj[0]['name'])) {
-                $value = $obj[0]['name'];
+                $value = $obj[0]['name1'];
             }
         } else {
             $value = (is_array($this->options) && array_key_exists('value', $this->options))
@@ -122,12 +123,12 @@ class Kladr extends InputWidget
         switch ($this->type) {
             case self::TYPE_STREET:
                 $script = '$("#' . $this->containerId . ' #' . $fakeId . '")
-                .kladr({type: "' . $this->type . '", parentType: $.kladr.type.city, 
+                .kladr({select: ' . $this->select . ', type: "' . $this->type . '", parentType: $.kladr.type.city,
                 parentInput:"#' . self::$inputs[self::TYPE_CITY][1] . '"})';
                 break;
             case self::TYPE_BUILDING:
                 $script = '$("#' . $this->containerId . ' #' . $fakeId . '")
-                .kladr({type: "' . $this->type . '", parentType: $.kladr.type.street, 
+                .kladr({select: ' . $this->select . ', type: "' . $this->type . '", type: "' . $this->type . '", parentType: $.kladr.type.street,
                 parentInput:"#' . self::$inputs[self::TYPE_STREET][1] . '"})';
                 break;
             case self::TYPE_ZIP:
@@ -143,7 +144,7 @@ class Kladr extends InputWidget
                 $script = '$("#' . $this->containerId . ' #' . $fakeId . '")';
                 break;
             default:
-                $script = '$("#' . $this->containerId . ' #' . $fakeId . '").kladr({type: "' . $this->type . '"})';
+                $script = '$("#' . $this->containerId . ' #' . $fakeId . '").kladr({select: ' . $this->select . ', type: "' . $this->type . '", type: "' . $this->type . '"})';
         }
 
         $script .= '.change(
